@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Code Quiz</title>
 </head>
 
 <body>
@@ -15,20 +15,25 @@
     </header>
     <div class="quiz-contents">
         <div id="start-page">
-            <div id="title">Code Quiz</div>
+            <h2 id="title">Code Quiz</h2>
             <p>This is a timed quiz. Don't suck.</p>
             <button id="startbtn">Start Quiz</button>
         </div>
-        <div id="questions"></div>
-        <div id="end-page"></div>
-    </div>
-   
-
-    </div>
-    <div></div>
-    <div></div>
-    <div></div>
-    <div></div>
+        <div id="questions">
+            <div id="question-title"></div>
+            <div id= "question-choices"></div>
+            <div id="feedback-correct">Correct!</div>
+            <div id="feedback-incorrect">Incorrect!</div>
+        </div>
+        <div id="end-page">
+            <h2>You've Reached the End of the Quiz</h2>
+            <div id="score">Your Score<span id="grade"></span></div>
+            <p id="input-initials">Please input your initials and submit your score results
+            <input type= "text" id="initials" max="2">
+            <button id="submit">Submit</button>
+            </p>
+        </div>
+<script src="./assets/script.js"></script>
 </body>
 
 </html>
