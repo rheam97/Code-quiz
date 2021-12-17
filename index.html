@@ -7,36 +7,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Code Quiz</title>
 </head>
-
-<body>
-    <header>
-        <div id="high-scores"><a href="high-scores.html">View High Scores</a></div>
-        <div id="timer"><span id="time">0</span></div>
-    </header>
-    <div class="quiz-contents">
-        <div id="start-page">
-            <h2 id="title">Code Quiz</h2>
-            <p>This is a timed quiz. Don't suck.</p>
-            <button id="startbtn">Start Quiz</button>
-        </div>
-        <div id="questions">
-            <div id="question-title"></div>
-            <div id= "question-choices"></div>
-            <div id="feedback-correct">Correct!</div>
-            <div id="feedback-incorrect">Incorrect!</div>
-        </div>
-        <div id="end-page">
-            <h2>You've Reached the End of the Quiz</h2>
-            <div id="score">Your Score<span id="grade"></span></div>
-            <p id="input-initials">Please input your initials and submit your score results
-            <input type= "text" id="initials" max="2">
-            <button id="submit">Submit</button>
-            </p>
-        </div>
-<script src="./assets/script.js"></script>
-</body>
-
-</html>
 <!--HTML
 - start page
 - header
@@ -53,4 +23,51 @@
 - end page
 - show score
 - input for intials
-- submit button
+- submit button-->
+
+<body>
+    <header>
+        <div id="high-scores"><a href="#scores-page">View High Scores</a></div>
+        <div id="timer">Time:<span id="time">0</span></div>
+    </header>
+    <div class="quiz-contents">
+        <div id="start-page">
+            <h2 id="title">Code Quiz</h2>
+            <p>This is a timed quiz. Don't suck.</p>
+            <button id="startbtn">Start Quiz</button>
+        </div>
+        <div id="questions">
+            <div id="question-title"></div>
+             <!--make answers instead of dynamic choices-->
+            <button id="answer1"></button>
+            <button id="answer2"></button>
+            <button id="answer3"></button>
+            <button id="answer4"></button>
+            <div id="feedback-correct">Correct!</div>
+            <div id="feedback-incorrect">Incorrect!</div>
+        </div>
+        <div id="end-page">
+            <h2>You've Reached the End of the Quiz</h2>
+            <div id="score">Your Score<span id="grade"></span></div>
+            <p id="input-initials">Please input your initials and submit your score results:
+                <input type="text" id="initials" max="2">
+                <button id="submit">Submit</button>
+            </p>
+            <!--highscore page
+	            - shows list of highscores
+	                - go back button to restart
+	                - clear high score button
+	                - share button (optional)-->
+            <div id="scores-page">
+                <h2>High Scores</h2>
+                <ul id="scores-list"></ul>
+                <button id="restart-quiz">Restart</button>
+                <button id="clear">Clear Scores</button>
+            </div>
+        </div>
+
+        <script src="./assets/script.js"></script>
+        <script src="assets/scores.js"></script>
+</body>
+
+</html>
