@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
     <title>Code Quiz</title>
 </head>
 <!--HTML
@@ -27,28 +28,28 @@
 
 <body>
     <header>
-        <div id="high-scores"><a href="#scores-page">View High Scores</a></div>
-        <div id="timeheader">Time:<span id="time">0</span></div>
+        <div id="high-scores" class=""><a href="#scores-page">View High Scores</a></div>
+        <div id="timeheader" class="">Time:<span id="time">0</span></div>
     </header>
     <div class="quiz-contents">
-        <div id="start-page">
+        <div id="start-page" class="">
             <h2 id="title">Code Quiz</h2>
             <p>This is a timed quiz. Don't suck.</p>
             <button id="startbtn">Start Quiz</button>
         </div>
-        <div id="questions">
+        <div id="questions" class="">
             <div id="question-title"></div>
              <!--make answers instead of dynamic choices-->
             <button id="answer1"></button>
             <button id="answer2"></button>
             <button id="answer3"></button>
             <button id="answer4"></button>
-            <div id="feedback-correct">Correct!</div>
-            <div id="feedback-incorrect">Incorrect!</div>
+            <div id="feedback-correct" class ="">Correct!</div>
+            <div id="feedback-incorrect" class ="">Incorrect!</div>
         </div>
-        <div id="end-page">
+        <div id="end-page" class ="">
             <h2>You've Reached the End of the Quiz</h2>
-            <div id="score">Your Score<span id="grade"></span></div>
+            <div id="score">Your Score:<span id="grade">0</span></div>
             <p id="input-initials">Please input your initials and submit your score results:
                 <input type="text" id="initials" max="2">
                 <button id="submit">Submit</button>
@@ -58,14 +59,14 @@
 	                - go back button to restart
 	                - clear high score button
 	                - share button (optional)-->
-            <div id="scores-page">
+            <div id="scores-page" class ="">
                 <h2>High Scores</h2>
                 <ul id="scores-list"></ul>
                 <button id="restart-quiz">Restart</button>
                 <button id="clear">Clear Scores</button>
             </div>
         </div>
-
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
         <script src="./assets/script.js"></script>
         <script src="assets/scores.js"></script>
 </body>

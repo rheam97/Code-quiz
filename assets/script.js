@@ -46,12 +46,13 @@ const questions = [
 var score = 0
 var currentQuestionIndex = 0
 var time = questions.length * 20
+let currentQuestion = questions[currentQuestionIndex]
 var timer;
 
 // DOM element references 
 let startPageEl = document.getElementById("start-page")
 let timerEl = document.getElementById("time")
-let scoresLinkEl=document.getElementById("high-scores")
+let scoresLinkEl = document.getElementById("high-scores")
 let startBtn = document.getElementById("startbtn")
 let questionEl = document.getElementById("questions")
 let answer1 = document.getElementById("answer1")
@@ -59,75 +60,80 @@ let answer2 = document.getElementById("answer2")
 let answer3 = document.getElementById("answer3")
 let answer4 = document.getElementById("answer4")
 var incorrect = document.getElementById("feedback-incorrect")
-var correct =document.getElementById("feedback-correct")
+var correct = document.getElementById("feedback-correct")
 let endPageEl = document.getElementById("end-page")
 let initialsEl = document.getElementById("initials")
 let submitBtn = document.getElementById("submit")
 let scoresPageEl = document.getElementById("scores-page")
+let grade = document.getElementById("grade")
 let restartBtn = document.getElementById("restart-quiz")
 let clearBtn = document.getElementById("clear")
 
+//how to hide other elements on start page when page loads?
+//bootstrap
 
 function startQuiz() {
-    scoresLinkEl.hidden=true
-    startPageEl.hidden = true
-    scoresPageEl.hidden = true
-    endPageEl.hidden = true
-    questionEl.hidden = false
-
+   
+    //timer begins ticking down
     timer = setInterval(function () {
         timerEl.textContent = time
         time--
     }, 1000)
 
     loadQuestions()
-    
+
 }
 
-
 function loadQuestions() {
-    let currentQuestion = questions[currentQuestionIndex]
+    //first question loads with choices
+    //let currentQuestion = questions[currentQuestionIndex] why didn't this work?
     //load question title
-    questionEl.children[0].textContent=currentQuestion.title
+    questionEl.children[0].textContent = currentQuestion.title
     //load question choices 
-    questionEl.children[1].textContent=currentQuestion.answer1
-    questionEl.children[2].textContent=currentQuestion.answer2
-    questionEl.children[3].textContent=currentQuestion.answer3
-    questionEl.children[4].textContent=currentQuestion.answer4
-    answer1.addEventListener("click", checkAnswers)/
+    questionEl.children[1].textContent = currentQuestion.answer1
+    questionEl.children[2].textContent = currentQuestion.answer2
+    questionEl.children[3].textContent = currentQuestion.answer3
+    questionEl.children[4].textContent = currentQuestion.answer4
+    //add event listener to answers 
+    answer1.addEventListener("click", checkAnswers)
     answer2.addEventListener("click", checkAnswers)
     answer3.addEventListener("click", checkAnswers)
     answer4.addEventListener("click", checkAnswers)
-    incorrect.hidden=true
-    correct.hidden=true
-
-    if (currentQuestionIndex < questions.length) {
-        currentQuestion++
-    }
-
-    else {
-        endPageEl.hidden = false
-        questionEl.hidden = true
-        startPageEl.hidden = true
-        scoresPageEl.hidden=true
-    }
-
-
-    //start button takes you to first question
-    //first question loads with choices
-    //timer begins ticking down
-    //when you click a choice, feedback is given, and you move to next question
+    incorrect.hidden = true
+    correct.hidden = true
 }
 
 function checkAnswers(event) {
-    if (questionEl.children[1,2,3,4].textContent !== currentQuestion.correctAnswer) {
+    //when you click a choice, feedback is given, and you move to next question
+    if (this.textContent !== currentQuestion.correctAnswer) {
         time -= 10
-        incorrect.hidden=false
-
+        
+        setInterval(function () {
+            
+        }, 500)
     }
-    else if (questionEl.children[1,2,3,4].textContent === currentQuestion.correctAnswer) {
+    else {
+        grade.textContent = score
         score++
-        correct.hidden=false
+        
+        setInterval(function () {
+           
+        }, 500)
+    }
+
+    //move to next question 
+    currentQuestionIndex++
+
+    if (currentQuestionIndex < questions.length) {
+        loadQuestions(currentQuestion)
+    }
+    //once there's no more questions or no more time, timer stops and you go to end page
+    //end page appears
+    else if (currentQuestionIndex === questions.length 
+        || time === 0) { //still going past 0, also ending quiz before
+            //going through question indexes
+        endQuiz()
+        
     }
     // add a listener on the buttons
     // document.getElementByID("answer1").addEventListener("click", evaluateAnswer)
@@ -143,16 +149,22 @@ function checkAnswers(event) {
     //} //if choice is wrong then lose 10 seconds on timer
 }
 
+function endQuiz() {
+    //stop timer
+    clearInterval(timer)
+    timerEl.textContent=time
+    //show end screen
+   
+}
+
 function loadScores() {
 
 }
 function clearScores() {
 
 }
-// uqestions function
-//start quiz function
+
 // for example answer1.textContent = questions[currentIndex].answer1
-//click start to begin quiz
 
 
 
@@ -164,15 +176,15 @@ function clearScores() {
 
 
 
-//once there's no more questions or no more time, timer stops and you go to end page
-//end page appears
+
 //input initials with correct criteria
 //press enter/click submit
 //score is saved to highscores
 //then go to highscore page
 //you can clear highscore, share your score, or restart quiz
 
-(startBtn).addEventListener("click", startQuiz)
+//start button takes you to first question
+startBtn.addEventListener("click", startQuiz)
 //(submitBtn).addEventListener("click", loadScores)
-(restartBtn).addEventListener("click", startPageEl.hidden = false)
+restartBtn.addEventListener("click", beforeQuiz)
 //(clearBtn).addEventListener("click", clearScores)
