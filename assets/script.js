@@ -2,12 +2,12 @@
 //every object has the values for title, choices, answer
 const questions = [
     {
-        title: "Commonly used data types do not include:",
-        answer1: "strings",
-        answer2: "booleans",
-        answer3: "alerts",
-        answer4: "numbers",
-        correctAnswer: "alerts"
+        title: "question 1",
+        answer1: "a",
+        answer2: "b",
+        answer3: "c",
+        answer4: "d",
+        correctAnswer: "a"
     },
     {
         title: "question 2",
@@ -45,8 +45,9 @@ const questions = [
 //global variables at top
 var score = 0
 var questionIndex = 0
-var time = 100
+var time = 50
 var timer;
+let currentQuestion;
 
 // DOM element references 
 let startPageEl = document.getElementById("start-page")
@@ -72,10 +73,10 @@ let initials = document.getElementById("initials").value ///says this is undefin
 //are typed
 //empty arrays for high scores for local storage scored
 var highScores = []
-var userScores;
+var userScores={}
 var savedScores;
 
-let currentQuestion = questions[questionIndex]
+
 
 function startQuiz() {
     //timer begins ticking down
@@ -90,24 +91,25 @@ function startQuiz() {
 
     questionEl.removeAttribute("class", "invisible")
     questionEl.setAttribute("class", "")
-    loadQuestions(currentQuestion)
+    loadQuestions(questionIndex)
 
 }
 
-function loadQuestions() {
+
+function loadQuestions(questionIndex) {
+    console.log(questionIndex)
     //hide start page
     startPageEl.setAttribute("class", "invisible")
-    //let currentQuestion = questions[currentQuestionIndex] why didn't this work?
-    //questions.forEach((element) => function () ///this made it jump to the last question????, incrmeenter sti
-    //ll doesn't work//currentquestion gives first index in console
-    questions.forEach(function(currentQuestion) {
-        //load question title
-    title.textContent = currentQuestion.title
+
+    currentQuestion = questions[questionIndex] 
+   
+    // load questions depending on index 
+    title.textContent = currentQuestion.title;
     //load question choices 
     answer1.textContent = currentQuestion.answer1
     answer2.textContent = currentQuestion.answer2
     answer3.textContent = currentQuestion.answer3
-    answer4.textContent = currentQuestion.answer4})
+    answer4.textContent = currentQuestion.answer4
 
 
     //add event listener to answers 
@@ -116,23 +118,18 @@ function loadQuestions() {
     answer3.addEventListener("click", checkAnswers)
     answer4.addEventListener("click", checkAnswers)
 
-    //   answer1.addEventListener("click", questionIncrement)
-    //   answer2.addEventListener("click", questionIncrement)
-    //  answer3.addEventListener("click", questionIncrement)
-    //  answer4.addEventListener("click", questionIncrement)
-
 }
 
-function checkAnswers() {
-    console.log(questionIndex)
+function checkAnswers(event) {
+    var answerClicked =event.target
     //when you click a choice, feedback is given, and you move to next question
-    if (this.textContent !== currentQuestion.correctAnswer) {
+    if (answerClicked.textContent !== questions[questionIndex].correctAnswer) {
         time -= 10
         // add feedback attributes
         incorrect.innerText = "Incorrect!"
         correct.hidden = true
     }
-    if (this.textContent === currentQuestion.correctAnswer) {
+    if (answerClicked.textContent === questions[questionIndex].correctAnswer) {
         grade.textContent = score
         score++
         correct.innerText = "Correct!"
@@ -146,18 +143,19 @@ function checkAnswers() {
         incorrect.setAttribute("class", "invisible")
         correct.setAttribute("class", "invisible")
     }, 500)
+    //increment index and call the function again with next index
+    questionIndex++
 
-    if (questionIndex < questions.length) {//incrementing, but not loading new questions
-        questionIndex++
-        loadQuestions()
+    if (questionIndex < questions.length) {
+        loadQuestions(questionIndex)
+        
     }
     //once there's no more questions, go to end page
     //end page appears
-    else if (questionIndex === questions.length) { //?? also ending quiz before
+    else if (questionIndex === questions.length) { 
         //going through question indexes
         endQuiz()
     }
-    //??not loading next question
 
 
 
@@ -174,16 +172,7 @@ function checkAnswers() {
     // } else { do incorrect answer things }
     //} //if choice is wrong then lose 10 seconds on timer
 }
-//function questionIncrement() {
-// currentQuestionIndex++//??not loading next question
 
-// if (currentQuestionIndex < questions.length) {
-//   loadQuestions(currentQuestion) }
-//once there's no more questions or no more time, timer stops and you go to end page
-//end page appears
-// else if (currentQuestionIndex == questions.length) { //?? also ending quiz before
-//going through question indexes
-// endQuiz()}}
 
 function endQuiz() {
     //stop timer
@@ -225,16 +214,17 @@ function sendScores(initials, score) {
 //basically its not setting the storage properly
 function showScores() {
     savedScores = JSON.parse(localStorage.getItem("highScores"))
+    console.log(savedScores)
     if (savedScores != null) {
-        var totalScores = document.createElement("ol")
-        totalScores.className = "score-list"
-
+        var allScores = document.createElement("ol")
+        allScores.className = "score-list"
+//cannot loop through an object, only an array
         for (var i = 0; i < savedScores.length; i++) {
             var userName = savedScores[i].init
             var points = savedScores[i].scores
             var scoreOutput = document.createElement("li")
             scoreOutput.textContent = userName + ":" + points
-            totalScores.appendChild(scoreOutput)
+            allScores.appendChild(scoreOutput)
         }
         printScores.appendChild(scoreOutput)
     }

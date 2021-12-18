@@ -8,6 +8,50 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
     <title>Code Quiz</title>
 </head>
+<body> <!--why doesn't flex work here? why is html so small-->
+    <div id="timeheader" class="mx-4 my-3">Time:<span id="time">0</span></div>
+    <div class="quiz-contents">
+        <div id="start-page" class="">
+            <h2 id="title">Code Quiz</h2>
+            <p>This is a timed quiz. You must read my mind to guess the correct answer.</p>
+            <button id="startbtn">Start Quiz</button>
+        </div>
+        <div id="questions" class="invisible">
+            <div id="question-title"></div>
+            <!--make answers instead of dynamic choices-->
+            <button id="answer1"></button>
+            <button id="answer2"></button>
+            <button id="answer3"></button>
+            <button id="answer4"></button>
+        </div>
+
+        <div id="feedback-correct" class=""></div>
+        <div id="feedback-incorrect" class=""></div>
+
+        <div id="end-page" class="invisible">
+            <h2>You've Reached the End of the Quiz</h2>
+            <div id="score">Your Score:<span id="grade">0</span></div>
+            <p id="input-initials">Please input your initials and submit your score results:
+                <input type="text" id="initials" max="2" />
+                <button id="submit">Submit</button>
+            </p>
+        </div>
+        <!--highscore page
+	            - shows list of highscores
+	                - go back button to restart
+	                - clear high score button-->
+        <div id="scores-page" class="invisible">
+            <h2>High Scores</h2>
+            <div id="scores"></div>
+            <button id="restart-quiz">Restart</button>
+            <button id="clear">Clear Scores</button>
+        </div>
+    </div>
+    <script src="./assets/script.js"></script>
+</body>
+
+</html>
+
 <!--HTML
 - start page
 - header
@@ -25,48 +69,3 @@
 - show score
 - input for intials
 - submit button-->
-
-<body>
-    <header>
-        <div id="timeheader" class="mx-4">Time:<span id="time">0</span></div>
-    </header>
-    <div class="quiz-contents text-center">
-        <div id="start-page" class="">
-            <h2 id="title">Code Quiz</h2>
-            <p>This is a timed quiz. Don't suck.</p>
-            <button id="startbtn">Start Quiz</button>
-        </div>
-        <div id="questions" class="invisible">
-            <div id="question-title"></div>
-             <!--make answers instead of dynamic choices-->
-            <button id="answer1"></button>
-            <button id="answer2"></button>
-            <button id="answer3"></button>
-            <button id="answer4"></button>
-        </div>
-
-        <div id="feedback-correct" class =""></div>
-        <div id="feedback-incorrect" class =""></div>
-
-        <div id="end-page" class ="invisible">
-            <h2>You've Reached the End of the Quiz</h2>
-            <div id="score">Your Score:<span id="grade">0</span></div>
-            <p id="input-initials">Please input your initials and submit your score results:
-                <input type="text" id="initials" max="2"/>
-                <button id="submit">Submit</button>
-            </p>
-            <!--highscore page
-	            - shows list of highscores
-	                - go back button to restart
-	                - clear high score button-->
-            <div id="scores-page" class ="invisible">
-                <h2>High Scores</h2>
-                <div id="scores"></div>
-                <button id="restart-quiz">Restart</button>
-                <button id="clear">Clear Scores</button>
-            </div>
-        </div>
-        <script src="./assets/script.js"></script>
-</body>
-
-</html>
