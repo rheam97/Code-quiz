@@ -129,8 +129,8 @@ function checkAnswers(event) {
 
     }
     else if (answerClicked.textContent === questions[questionIndex].correctAnswer) {
-        grade.textContent = score
         score+=23
+        grade.textContent = score
         feedbackEl.innerText = "Correct!"
 
     }
@@ -202,7 +202,7 @@ function sendScores(initials, score) {
     // if satisfied, send to localstorage
     else {
         var highScores;
-        if (JSON.parse(localStorage.getItem(highScores) != null))
+        if (JSON.parse(localStorage.getItem(highScores) !== null))
             highScores = JSON.parse(localStorage.getItem(highScores))
         else 
         highScores = []
@@ -220,17 +220,17 @@ function sendScores(initials, score) {
 }
 //basically its not setting the storage properly
 function showScores() {
-    savedScores = JSON.parse(localStorage.getItem("highScores"))
+    highScores = JSON.parse(localStorage.getItem("highScores"))
     console.log(savedScores)
     //get old scores and add new scores 
-    if (savedScores !== null) {
+    if (highScores !== null) {
         var allScores = document.createElement("ol")
         allScores.className = "score-list"
         //cannot loop through an object, only an array
     }
-    for (var i = 0; i < savedScores.length; i++) {
-        var userName = savedScores[i].init
-        var points = savedScores[i].scores
+    for (var i = 0; i < highScores.length; i++) {
+        var userName = highScores[i].init
+        var points = highScores[i].scores
         var scoreOutput = document.createElement("li")
         scoreOutput.textContent = userName + ":" + points
         allScores.appendChild(scoreOutput)
