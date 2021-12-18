@@ -62,18 +62,19 @@ let answer4 = document.getElementById("answer4")
 var incorrect = document.getElementById("feedback-incorrect")
 var correct = document.getElementById("feedback-correct")
 let endPageEl = document.getElementById("end-page")
-let initialsEl = document.getElementById("initials")
 let submitBtn = document.getElementById("submit")
 let scoresPageEl = document.getElementById("scores-page")
-let printScores =document.getElementById("scores")
+let printScores = document.getElementById("scores")
 let grade = document.getElementById("grade")
 let restartBtn = document.getElementById("restart-quiz")
 let clearBtn = document.getElementById("clear")
-let initials = document.getElementById("initials").value ///says this is undefined
-
-var highscores =[]
+let initials = document.getElementById("initials").value ///says this is undefined, doesn't come up in console.log when initials
+//are typed
+//empty arrays for high scores for local storage scored
+var highScores = []
 var userScores;
 var savedScores;
+
 let currentQuestion = questions[questionIndex]
 
 function startQuiz() {
@@ -97,15 +98,16 @@ function loadQuestions() {
     //hide start page
     startPageEl.setAttribute("class", "invisible")
     //let currentQuestion = questions[currentQuestionIndex] why didn't this work?
-    //questions.forEach((element) => function () {
-    //for (let currentQuestionIndex=0; currentQuestionIndex< questions.length; currentQuestionIndex++) {
-    //load question title
+    //questions.forEach((element) => function () ///this made it jump to the last question????, incrmeenter sti
+    //ll doesn't work//currentquestion gives first index in console
+    questions.forEach(function(currentQuestion) {
+        //load question title
     title.textContent = currentQuestion.title
     //load question choices 
     answer1.textContent = currentQuestion.answer1
     answer2.textContent = currentQuestion.answer2
     answer3.textContent = currentQuestion.answer3
-    answer4.textContent = currentQuestion.answer4
+    answer4.textContent = currentQuestion.answer4})
 
 
     //add event listener to answers 
@@ -145,19 +147,17 @@ function checkAnswers() {
         correct.setAttribute("class", "invisible")
     }, 500)
 
-    //*****move to next question 
-    if (this) { //its incrementing the index, but not changing/iterating through the values 
+    if (questionIndex < questions.length) {//incrementing, but not loading new questions
         questionIndex++
-        if (questionIndex < questions.length) {
-            loadQuestions(currentQuestion)
-        }
-        //once there's no more questions, go to end page
-        //end page appears
-        else if (questionIndex === questions.length) { //?? also ending quiz before
-            //going through question indexes
-            endQuiz()
-        }
-    }//??not loading next question
+        loadQuestions()
+    }
+    //once there's no more questions, go to end page
+    //end page appears
+    else if (questionIndex === questions.length) { //?? also ending quiz before
+        //going through question indexes
+        endQuiz()
+    }
+    //??not loading next question
 
 
 
@@ -199,64 +199,52 @@ function sendScores(initials, score) {
     endPageEl.removeAttribute("class", "visible")
     endPageEl.setAttribute("class", "invisible")
     scoresPageEl.removeAttribute("class", "invisible")
-    scoresPageEl.setAttribute("class","visible")
+    scoresPageEl.setAttribute("class", "visible")
     // initials criteria 
-    if (initials==="") { //not working from here, not saving initials or score and not saving old scores
+    if (initials === "") { //not working from here, not saving initials or score and not saving old scores
         alert("You must input initials to save your score.")
         return
     }
 
-    else if (initials.length>2) {
+    else if (initials.length > 2) {
         alert("Your initials can only contain two characters.")
         return
     }
 
     else {
         userScores = {
-            initials:initials,
-            scores:score
+            init: initials,
+            scores: score
         }
 
-        highscores.push(userScores)
-        localStorage.setItem("userScores",JSON.stringify(highscores))
+        highScores.push(userScores)
+        localStorage.setItem("highScores", JSON.stringify(highScores))
     }
     showScores()
 }
 //basically its not setting the storage properly
 function showScores() {
-   savedScores= JSON.parse(localStorage.getItem("userScores"))
-   if (savedScores!=null) {
-       var totalScores= document.createElement("ol")
-       totalScores.className="score-list"
+    savedScores = JSON.parse(localStorage.getItem("highScores"))
+    if (savedScores != null) {
+        var totalScores = document.createElement("ol")
+        totalScores.className = "score-list"
 
-       for( var i=0; i<savedScores.length;i++) {
-           var userName= savedScores[i].initials
-           var points =savedScores[i].scores
-           var scoreOutput =document.createElement("li")
-        scoreOutput.textContent= userName + ":" + points
-        totalScores.appendChild(scoreOutput)
-       }
-       printScores.appendChild(scoreOutput)
-   }
+        for (var i = 0; i < savedScores.length; i++) {
+            var userName = savedScores[i].init
+            var points = savedScores[i].scores
+            var scoreOutput = document.createElement("li")
+            scoreOutput.textContent = userName + ":" + points
+            totalScores.appendChild(scoreOutput)
+        }
+        printScores.appendChild(scoreOutput)
+    }
 
-    
+
 }
 function clearScores() {
     window.localStorage.clear()
     printScores.setAttribute("class", "invisible")
 }
-
-// for example answer1.textContent = questions[currentIndex].answer1
-
-
-
-// to make and element hidden or visible dynamically
-// element.style.display = "none"
-// element.style.visibility = "hidden"
-// element.setAttribute("class", "whatever the class is")
-// also removeAttribute
-
-
 
 
 //input initials with correct criteria
@@ -272,7 +260,8 @@ startBtn.addEventListener("click", startQuiz)
 //submit sends and loads scores
 submitBtn.addEventListener("click", sendScores)
 //restart refreshes DOM
-restartBtn.addEventListener("click", function() {
-location.href="index.html"})
-//clear 
+restartBtn.addEventListener("click", function () {
+    location.href = "index.html"
+})
+//clear empties storage and clears score list
 clearBtn.addEventListener("click", clearScores)
