@@ -130,7 +130,7 @@ function checkAnswers(event) {
     }
     else if (answerClicked.textContent === questions[questionIndex].correctAnswer) {
         grade.textContent = score
-        score++
+        score+=23
         feedbackEl.innerText = "Correct!"
 
     }
@@ -218,7 +218,7 @@ function sendScores(a, b) {
 function showScores() {
     savedScores = JSON.parse(localStorage.getItem("highScores"))
     console.log(savedScores)
-    if (savedScores != null) {
+    if (savedScores !== null) {
         var allScores = document.createElement("ol")
         allScores.className = "score-list"
         //cannot loop through an object, only an array
