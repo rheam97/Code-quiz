@@ -181,21 +181,25 @@ function endQuiz() {
     questionEl.setAttribute("class", "invisible")
     endPageEl.removeAttribute("class", "invisible")
     endPageEl.setAttribute("class", "visible")
+    scoresPageEl.setAttribute("class", "invisible")
 }
 
-let initials = initialsEl.value //issues with initials input, and adding new scores to old scores
-function sendScores(a, b) {
+
+function sendScores(initials, score) {
+    initials = initialsEl.value //issues with initials input, and adding new scores to old scores
+    console.log(initials.length)// not giving errors because its not reading initials 
     endPageEl.removeAttribute("class", "visible")
     endPageEl.setAttribute("class", "invisible")
     scoresPageEl.removeAttribute("class", "invisible")
     scoresPageEl.setAttribute("class", "visible")
+    
     // initials criteria 
 
     if (initials.length = 0 || initials.length > 3) {
         alert("You must input  max 3-letter initials to save your score.")
-        return
+        endQuiz()
     }
-
+    // if satisfied, send to localstorage
     else {
         var highScores;
         if (JSON.parse(localStorage.getItem(highScores) != null))
@@ -205,7 +209,7 @@ function sendScores(a, b) {
 
         var userScores = {
             init: a,
-            scores: b
+            scores: score
         };
 
         highScores.push(userScores)
@@ -218,6 +222,7 @@ function sendScores(a, b) {
 function showScores() {
     savedScores = JSON.parse(localStorage.getItem("highScores"))
     console.log(savedScores)
+    //get old scores and add new scores 
     if (savedScores !== null) {
         var allScores = document.createElement("ol")
         allScores.className = "score-list"
