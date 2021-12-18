@@ -208,7 +208,7 @@ function sendScores(initials, score) {
         highScores = []
 
         var userScores = {
-            init: a,
+            init: initials,
             scores: score
         };
 
