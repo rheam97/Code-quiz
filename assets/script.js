@@ -45,7 +45,7 @@ const questions = [
 //global variables at top
 var score = 0
 var questionIndex = 0
-var time = 50
+var time = 90
 var timer;
 let currentQuestion;
 
@@ -60,8 +60,7 @@ let answer1 = document.getElementById("answer1")
 let answer2 = document.getElementById("answer2")
 let answer3 = document.getElementById("answer3")
 let answer4 = document.getElementById("answer4")
-var incorrect = document.getElementById("feedback-incorrect")
-var correct = document.getElementById("feedback-correct")
+var feedbackEl = document.getElementById("feedback")
 let endPageEl = document.getElementById("end-page")
 let submitBtn = document.getElementById("submit")
 let scoresPageEl = document.getElementById("scores-page")
@@ -69,12 +68,12 @@ let printScores = document.getElementById("scores")
 let grade = document.getElementById("grade")
 let restartBtn = document.getElementById("restart-quiz")
 let clearBtn = document.getElementById("clear")
-let initials = document.getElementById("initials").value ///says this is undefined, doesn't come up in console.log when initials
+///says this is undefined, doesn't come up in console.log when initials
 //are typed
 //empty arrays for high scores for local storage scored
-var highScores = []
-var userScores={}
+var userScores = {}
 var savedScores;
+let initialsEl = document.getElementById("initials")
 
 
 
@@ -101,8 +100,8 @@ function loadQuestions(questionIndex) {
     //hide start page
     startPageEl.setAttribute("class", "invisible")
 
-    currentQuestion = questions[questionIndex] 
-   
+    currentQuestion = questions[questionIndex]
+
     // load questions depending on index 
     title.textContent = currentQuestion.title;
     //load question choices 
@@ -121,38 +120,38 @@ function loadQuestions(questionIndex) {
 }
 
 function checkAnswers(event) {
-    var answerClicked =event.target
+    var answerClicked = event.target
     //when you click a choice, feedback is given, and you move to next question
     if (answerClicked.textContent !== questions[questionIndex].correctAnswer) {
         time -= 10
         // add feedback attributes
-        incorrect.innerText = "Incorrect!"
-        correct.hidden = true
+        feedbackEl.innerText = "Incorrect!"
+
     }
-    if (answerClicked.textContent === questions[questionIndex].correctAnswer) {
+    else if (answerClicked.textContent === questions[questionIndex].correctAnswer) {
         grade.textContent = score
         score++
-        correct.innerText = "Correct!"
-        incorrect.hidden = true
+        feedbackEl.innerText = "Correct!"
+
     }
 
     //flicker feedback for half a second
-    incorrect.setAttribute("class", "visible")
-    correct.setAttribute("class", "visible")
+
+    feedbackEl.setAttribute("class", "visible")
     setInterval(function () {
-        incorrect.setAttribute("class", "invisible")
-        correct.setAttribute("class", "invisible")
+        feedbackEl.setAttribute("class", "invisible")
     }, 500)
+
     //increment index and call the function again with next index
     questionIndex++
 
     if (questionIndex < questions.length) {
         loadQuestions(questionIndex)
-        
+
     }
     //once there's no more questions, go to end page
     //end page appears
-    else if (questionIndex === questions.length) { 
+    else if (questionIndex === questions.length) {
         //going through question indexes
         endQuiz()
     }
@@ -184,32 +183,36 @@ function endQuiz() {
     endPageEl.setAttribute("class", "visible")
 }
 
-function sendScores(initials, score) {
+let initials = initialsEl.value //issues with initials input, and adding new scores to old scores
+function sendScores(a, b) {
     endPageEl.removeAttribute("class", "visible")
     endPageEl.setAttribute("class", "invisible")
     scoresPageEl.removeAttribute("class", "invisible")
     scoresPageEl.setAttribute("class", "visible")
     // initials criteria 
-    if (initials === "") { //not working from here, not saving initials or score and not saving old scores
-        alert("You must input initials to save your score.")
-        return
-    }
 
-    else if (initials.length > 2) {
-        alert("Your initials can only contain two characters.")
+    if (initials.length = 0 || initials.length > 3) {
+        alert("You must input  max 3-letter initials to save your score.")
         return
     }
 
     else {
-        userScores = {
-            init: initials,
-            scores: score
-        }
+        var highScores;
+        if (JSON.parse(localStorage.getItem(highScores) != null))
+            highScores = JSON.parse(localStorage.getItem(highScores))
+        else 
+        highScores = []
+
+        var userScores = {
+            init: a,
+            scores: b
+        };
 
         highScores.push(userScores)
         localStorage.setItem("highScores", JSON.stringify(highScores))
     }
     showScores()
+
 }
 //basically its not setting the storage properly
 function showScores() {
@@ -218,19 +221,18 @@ function showScores() {
     if (savedScores != null) {
         var allScores = document.createElement("ol")
         allScores.className = "score-list"
-//cannot loop through an object, only an array
-        for (var i = 0; i < savedScores.length; i++) {
-            var userName = savedScores[i].init
-            var points = savedScores[i].scores
-            var scoreOutput = document.createElement("li")
-            scoreOutput.textContent = userName + ":" + points
-            allScores.appendChild(scoreOutput)
-        }
-        printScores.appendChild(scoreOutput)
+        //cannot loop through an object, only an array
     }
-
-
+    for (var i = 0; i < savedScores.length; i++) {
+        var userName = savedScores[i].init
+        var points = savedScores[i].scores
+        var scoreOutput = document.createElement("li")
+        scoreOutput.textContent = userName + ":" + points
+        allScores.appendChild(scoreOutput)
+    }
+    printScores.appendChild(scoreOutput)
 }
+
 function clearScores() {
     window.localStorage.clear()
     printScores.setAttribute("class", "invisible")
@@ -248,7 +250,9 @@ function clearScores() {
 //start button takes you to first question
 startBtn.addEventListener("click", startQuiz)
 //submit sends and loads scores
-submitBtn.addEventListener("click", sendScores)
+submitBtn.addEventListener("click", function () {
+    sendScores(initials, score)
+})
 //restart refreshes DOM
 restartBtn.addEventListener("click", function () {
     location.href = "index.html"
