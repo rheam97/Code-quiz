@@ -20,6 +20,8 @@ I first pseudocoded the quiz to break down all the different functions and eleme
 
 In sum, this app operates using 7 functions: startQuiz, loadQuestions, checkAnswers, endQuiz, sendscores, showScores, and clearScores.
 
+This is how the homepage looks:
+![startpage](appimage.png)
 
 <a name= "usage"></a>
 ## Acceptance Criteria
@@ -36,9 +38,6 @@ WHEN all questions are answered or the timer reaches 0
 THEN the game is over
 WHEN the game is over
 THEN I can save my initials and score
-
-This is how the homepage looks:
-![startpage](appimage.png)
 
 ```
 <a name= "URL"></a>
