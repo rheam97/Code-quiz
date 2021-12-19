@@ -7,41 +7,42 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="assets/style.css"/>
-    <title>Code Quiz</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300&display=swap" rel="stylesheet">
+    <title>Tech Trivia Quiz</title>
 </head>
-<body class=""> 
+<body style = "font-family: 'Roboto', serif;" class=""> 
     <div id="timeheader" class="mx-4 my-3">Time:<span id="time">0</span></div>
-    <button id="high-scores">View High Scores</button>
+    <button id="high-scores" class="shadow bg-body rounded button">View High Scores</button>
     <div class="quiz-contents text-center container-fluid mt-5">
         <div id="start-page" class="">
-            <h2 id="title">Code Quiz</h2>
+            <h2 id="title">Tech Trivia Quiz</h2>
             <p>This is a timed quiz. You must read my mind to guess the correct answer.</p>
-            <button id="startbtn">Start Quiz</button>
+            <button id="startbtn" class ="shadow bg-body rounded button">Start Quiz</button>
         </div>
         <div id="questions" class="invisible">
-            <div id="question-title"></div>
+            <div id="question-title" class="mb-2"></div>
             <!--make answers instead of dynamic choices-->
-            <button id="answer1"></button>
-            <button id="answer2"></button>
-            <button id="answer3"></button>
-            <button id="answer4"></button>
+            <button id="answer1" class="shadow bg-body rounded mx-2 button"></button>
+            <button id="answer2" class="shadow bg-body rounded mx-2 button"></button>
+            <button id="answer3" class="shadow bg-body rounded mx-2 button"></button>
+            <button id="answer4" class="shadow bg-body rounded mx-2 button"></button>
         </div>
 
-        <div id="feedback" class=""></div>
+        <div id="feedback" class="m-3"></div>
 
         <div id="end-page" class="invisible">
             <h2>You've Reached the End of the Quiz</h2>
             <div id="score">Your Score:<span id="grade">0</span></div>
             <p id="input-initials">Please input your initials and submit your score results:
                 <input type="text" id="initials" max="2" />
-                <button id="submit">Submit</button>
+                <button id="submit" class="shadow bg-body rounded button">Submit</button>
             </p>
         </div>
         <div id="scores-page" class="invisible mb-5">
             <h2>High Scores</h2>
             <div id="scores"></div>
-            <button id="restart-quiz" class="mt-2">Restart</button>
-            <button id="clear" class= "mt-2">Clear Scores</button>
+            <button id="restart-quiz" class="mt-2 shadow bg-body rounded mx-2 button">Restart</button>
+            <button id="clear" class= "mt-2 shadow bg-body rounded mx-2 button">Clear Scores</button>
         </div>
     </div>
     <script src="./assets/script.js"></script>
@@ -49,20 +50,3 @@
 
 </html>
 
-<!--HTML
-- start page
-- header
-- link to highscores
-- timer
-- title
-- paragraph
-- start button
-- question page
-- timer
-- question
-- choices
-- feedback (correct/incorrect)
-- end page
-- show score
-- input for intials
-- submit button-->
