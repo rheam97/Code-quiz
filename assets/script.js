@@ -126,13 +126,13 @@ function checkAnswers(event) {
         time -= 10
         // add appropriate feedback text
         feedbackEl.innerText = "Incorrect!"
-
+       
     }
     else if (answerClicked.textContent === questions[questionIndex].correctAnswer) {
         score += 23
         grade.textContent = score
         feedbackEl.innerText = "Correct!"
-
+       
     }
 
     //flicker feedback for half a second

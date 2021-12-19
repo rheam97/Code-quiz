@@ -5,13 +5,14 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="assets/style.css"/>
     <title>Code Quiz</title>
 </head>
-<body> <!--why doesn't flex work here? why is html so small-->
+<body class=""> 
     <div id="timeheader" class="mx-4 my-3">Time:<span id="time">0</span></div>
     <button id="high-scores">View High Scores</button>
-    <div class="quiz-contents text-center">
+    <div class="quiz-contents text-center container-fluid mt-5">
         <div id="start-page" class="">
             <h2 id="title">Code Quiz</h2>
             <p>This is a timed quiz. You must read my mind to guess the correct answer.</p>
@@ -36,11 +37,11 @@
                 <button id="submit">Submit</button>
             </p>
         </div>
-        <div id="scores-page" class="invisible">
+        <div id="scores-page" class="invisible mb-5">
             <h2>High Scores</h2>
             <div id="scores"></div>
-            <button id="restart-quiz">Restart</button>
-            <button id="clear">Clear Scores</button>
+            <button id="restart-quiz" class="mt-2">Restart</button>
+            <button id="clear" class= "mt-2">Clear Scores</button>
         </div>
     </div>
     <script src="./assets/script.js"></script>
