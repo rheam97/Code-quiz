@@ -68,12 +68,12 @@ let printScores = document.getElementById("scores")
 let grade = document.getElementById("grade")
 let restartBtn = document.getElementById("restart-quiz")
 let clearBtn = document.getElementById("clear")
-///says this is undefined, doesn't come up in console.log when initials
-//are typed
-//empty arrays for high scores for local storage scored
+let initialsEl = document.getElementById("initials")
+
+//empty objects for high scores for local storage 
 var userScores = {}
 var savedScores;
-let initialsEl = document.getElementById("initials")
+
 
 
 
@@ -102,7 +102,7 @@ function loadQuestions(questionIndex) {
 
     currentQuestion = questions[questionIndex]
 
-    // load questions depending on index 
+    //load questions depending on index 
     title.textContent = currentQuestion.title;
     //load question choices 
     answer1.textContent = currentQuestion.answer1
@@ -124,7 +124,7 @@ function checkAnswers(event) {
     //when you click a choice, feedback is given, and you move to next question
     if (answerClicked.textContent !== questions[questionIndex].correctAnswer) {
         time -= 10
-        // add feedback attributes
+        // add appropriate feedback text
         feedbackEl.innerText = "Incorrect!"
 
     }
@@ -152,7 +152,7 @@ function checkAnswers(event) {
     //once there's no more questions, go to end page
     //end page appears
     else if (questionIndex === questions.length) {
-        //going through question indexes
+      
         endQuiz()
     }
 }
@@ -171,8 +171,8 @@ function endQuiz() {
 
 
 function sendScores(initials, score) {
-    initials = initialsEl.value //issues with initials input, and adding new scores to old scores
-    console.log(initials.length)// not giving errors because its not reading initials 
+    initials = initialsEl.value 
+
     endPageEl.removeAttribute("class", "visible")
     endPageEl.setAttribute("class", "invisible")
     scoresPageEl.removeAttribute("class", "invisible")
@@ -203,15 +203,15 @@ function sendScores(initials, score) {
     showScores()
 
 }
-//basically its not setting the storage properly
+
 function showScores() {
     highScores = JSON.parse(localStorage.getItem("highScores"))
     console.log(savedScores)
-    //get old scores and add new scores 
+    //get old scores and add new scores to HTML
     if (highScores !== null) {
         var allScores = document.createElement("ol")
         allScores.className = "score-list"
-        //cannot loop through an object, only an array
+        
 
         for (var i = 0; i < highScores.length; i++) {
             var userName = highScores[i].init
@@ -243,9 +243,11 @@ restartBtn.addEventListener("click", function () {
 //clear empties storage and clears score list
 clearBtn.addEventListener("click", clearScores)
 
-// to view high scores 
+//view hs to view high scores 
 hsBtnEl.addEventListener("click", function() {
     startPageEl.setAttribute("class", "invisible")
+    questionEl.setAttribute("class", "invisible")
+    endPageEl.setAttribute("class", "invisible")
     scoresPageEl.removeAttribute("class", "invisible")
     scoresPageEl.setAttribute("class", "visible")
     showScores()
