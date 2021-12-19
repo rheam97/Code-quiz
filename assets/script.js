@@ -129,7 +129,7 @@ function checkAnswers(event) {
 
     }
     else if (answerClicked.textContent === questions[questionIndex].correctAnswer) {
-        score+=23
+        score += 23
         grade.textContent = score
         feedbackEl.innerText = "Correct!"
 
@@ -192,7 +192,7 @@ function sendScores(initials, score) {
     endPageEl.setAttribute("class", "invisible")
     scoresPageEl.removeAttribute("class", "invisible")
     scoresPageEl.setAttribute("class", "visible")
-    
+
     // initials criteria 
 
     if (initials.length = 0 || initials.length > 3) {
@@ -202,10 +202,10 @@ function sendScores(initials, score) {
     // if satisfied, send to localstorage
     else {
         var highScores;
-        if (JSON.parse(localStorage.getItem(highScores) !== null))
-            highScores = JSON.parse(localStorage.getItem(highScores))
-        else 
-        highScores = []
+        if (JSON.parse(localStorage.getItem("highScores") !== null))
+            highScores = JSON.parse(localStorage.getItem("highScores"))
+        else
+            highScores = []
 
         var userScores = {
             init: initials,
@@ -227,29 +227,23 @@ function showScores() {
         var allScores = document.createElement("ol")
         allScores.className = "score-list"
         //cannot loop through an object, only an array
+
+        for (var i = 0; i < highScores.length; i++) {
+            var userName = highScores[i].init
+            var points = highScores[i].scores
+            var scoreOutput = document.createElement("li")
+            scoreOutput.textContent = userName + ":" + points
+            allScores.appendChild(scoreOutput)
+            printScores.appendChild(scoreOutput)
+        }
+
     }
-    for (var i = 0; i < highScores.length; i++) {
-        var userName = highScores[i].init
-        var points = highScores[i].scores
-        var scoreOutput = document.createElement("li")
-        scoreOutput.textContent = userName + ":" + points
-        allScores.appendChild(scoreOutput)
-    }
-    printScores.appendChild(scoreOutput)
 }
 
 function clearScores() {
     window.localStorage.clear()
     printScores.setAttribute("class", "invisible")
 }
-
-
-//input initials with correct criteria
-//press enter/click submit
-//score is saved to highscores
-//then go to highscore page
-//you can clear highscore, share your score, or restart quiz
-
 
 
 //start button takes you to first question
