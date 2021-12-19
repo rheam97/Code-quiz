@@ -5,23 +5,5 @@
     background-color: blueviolet;
 }
 
-.startpageol {
-    position: relative;
-    z-index: 1;
-}
 
-.questionpageol {
-    position: absolute;
-    z-index: 2;
-}
-
-.endpageol {
-    position: absolute;
-    z-index: 3;
-}
-
-.highscoresol {
-    position: absolute;
-    z-index: 4;
-}
 
