@@ -52,7 +52,7 @@ let currentQuestion;
 // DOM element references 
 let startPageEl = document.getElementById("start-page")
 let timerEl = document.getElementById("time")
-let scoresLinkEl = document.getElementById("high-scores")
+let hsBtnEl = document.getElementById("high-scores")
 let startBtn = document.getElementById("startbtn")
 let questionEl = document.getElementById("questions")
 let title = document.getElementById("question-title")
@@ -155,21 +155,6 @@ function checkAnswers(event) {
         //going through question indexes
         endQuiz()
     }
-
-
-
-    // add a listener on the buttons
-    // document.getElementByID("answer1").addEventListener("click", evaluateAnswer)
-    // function evaluateAnswer() {
-    // you can get the value of the click using "this"
-    // if(this.textValue === questions[currentIndex].correctAnswer) {
-    //  do correct answer things  
-    //  increase the score
-    //  increment the currentIndex
-    //  check to see if currentIndex is = question.length
-    //  rerun the question render function
-    // } else { do incorrect answer things }
-    //} //if choice is wrong then lose 10 seconds on timer
 }
 
 
@@ -245,7 +230,6 @@ function clearScores() {
     printScores.setAttribute("class", "invisible")
 }
 
-
 //start button takes you to first question
 startBtn.addEventListener("click", startQuiz)
 //submit sends and loads scores
@@ -258,3 +242,11 @@ restartBtn.addEventListener("click", function () {
 })
 //clear empties storage and clears score list
 clearBtn.addEventListener("click", clearScores)
+
+// to view high scores 
+hsBtnEl.addEventListener("click", function() {
+    startPageEl.setAttribute("class", "invisible")
+    scoresPageEl.removeAttribute("class", "invisible")
+    scoresPageEl.setAttribute("class", "visible")
+    showScores()
+})
