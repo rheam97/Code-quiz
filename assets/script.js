@@ -2,50 +2,50 @@
 //every object has the values for title, choices, answer
 const questions = [
     {
-        title: "question 1",
-        answer1: "a",
-        answer2: "b",
-        answer3: "c",
-        answer4: "d",
-        correctAnswer: "a"
+        title: "What year was the very first model of the iPhone released?",
+        answer1: "2005",
+        answer2: "2007",
+        answer3: "2018",
+        answer4: "2012",
+        correctAnswer: "2007"
     },
     {
-        title: "question 2",
-        answer1: "a",
-        answer2: "b",
-        answer3: "c",
-        answer4: "d",
-        correctAnswer: "b"
+        title: "What is often seen as the smallest unit of memory?",
+        answer1: "gigabyte",
+        answer2: "bit",
+        answer3: "kilobyte",
+        answer4: "terabyte",
+        correctAnswer: "kilobyte"
     },
     {
-        title: "question 3",
-        answer1: "a",
-        answer2: "b",
-        answer3: "c",
-        answer4: "d",
-        correctAnswer: "a"
+        title: "Which one of these is NOT a type of OS?",
+        answer1: "Java",
+        answer2: "Linux",
+        answer3: "Android",
+        answer4: "Windows",
+        correctAnswer: "Java"
     },
     {
-        title: "question 4",
-        answer1: "a",
-        answer2: "b",
-        answer3: "c",
-        answer4: "d",
-        correctAnswer: "c"
+        title: "Which email service is owned by Microsoft?",
+        answer1: "AOL",
+        answer2: "Yahoo!",
+        answer3: "Hotmail",
+        answer4: "Gmail",
+        correctAnswer: "Hotmail"
     },
     {
-        title: "question 5",
-        answer1: "a",
-        answer2: "b",
-        answer3: "c",
-        answer4: "d",
-        correctAnswer: "d"
+        title: "What was Twitter’s original name?",
+        answer1: "Twit",
+        answer2: "twttr",
+        answer3: "twtter",
+        answer4: "Tweet",
+        correctAnswer: "twttr"
     }
 ]
 //global variables at top
 var score = 0
 var questionIndex = 0
-var time = 90
+var time = 60
 var timer;
 let currentQuestion;
 
@@ -218,6 +218,7 @@ function showScores() {
             var points = highScores[i].scores
             var scoreOutput = document.createElement("li")
             scoreOutput.textContent = userName + ":" + points
+            scoreOutput.setAttribute("class", "bg-dark list-unstyled text-center text-light m-1")
             allScores.appendChild(scoreOutput)
             printScores.appendChild(scoreOutput)
         }
